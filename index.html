@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohamed Empire | إمبراطورية محمد</title>
+    <title>Mohamed Empire</title>
     <link rel="icon" href="https://img.icons8.com/flat-round/64/crown.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -11,22 +11,18 @@
         body, html { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: sans-serif; overflow-x: hidden; }
         #starCanvas { position: fixed; top: 0; left: 0; z-index: -1; }
         
-        /* شريط التحكم العلوي */
-        .top-nav { width: 100%; display: flex; justify-content: space-between; padding: 15px 30px; box-sizing: border-box; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); }
-        .lang-btn { background: none; border: 1px solid var(--gold); color: var(--gold); padding: 5px 15px; cursor: pointer; border-radius: 20px; font-size: 14px; }
+        .top-nav { width: 100%; display: flex; justify-content: space-between; padding: 15px 30px; box-sizing: border-box; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); position: sticky; top:0; z-index: 2000; }
+        .lang-btn { background: none; border: 1px solid var(--gold); color: var(--gold); padding: 5px 15px; cursor: pointer; border-radius: 20px; }
 
-        .logo-container { text-align: center; perspective: 1000px; margin-top: 20px; }
-        .main-logo { font-size: 5em; color: var(--gold); text-shadow: 0 0 20px rgba(212, 175, 55, 0.5); cursor: pointer; transition: 0.1s; }
+        .logo-container { text-align: center; margin-top: 20px; }
+        .main-logo { font-size: 4em; color: var(--gold); text-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
 
-        .section-title { color: var(--gold); margin: 40px 0 20px; border-bottom: 2px solid var(--gold); padding-bottom: 5px; }
+        .content { display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .section-title { color: var(--gold); margin: 30px 0 15px; border-bottom: 2px solid var(--gold); width: 80%; text-align: center; padding-bottom: 5px; }
 
-        /* المعرض الفني */
-        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; width: 90%; max-width: 1000px; margin-bottom: 50px; }
-        .gallery-img { width: 100%; height: 150px; background: #222; border-radius: 10px; object-fit: cover; border: 1px solid #333; transition: 0.3s; }
-        .gallery-img:hover { border-color: var(--gold); transform: scale(1.05); }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; width: 90%; max-width: 900px; margin: auto; }
-        .item { background: rgba(26, 26, 26, 0.9); padding: 20px; border-radius: 15px; text-align: center; cursor: pointer; border: 1px solid #333; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; width: 100%; max-width: 1000px; }
+        .item { background: rgba(26, 26, 26, 0.9); padding: 20px; border-radius: 15px; text-align: center; cursor: pointer; border: 1px solid #333; transition: 0.3s; }
+        .item:hover { border-color: var(--gold); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); }
         .item i { font-size: 30px; color: var(--gold); margin-bottom: 10px; }
 
         /* Modal */
@@ -48,22 +44,10 @@
         <h1 class="main-logo" id="logoText">محمد</h1>
     </div>
 
-    <div class="content" style="display: flex; flex-direction: column; align-items: center;">
-        <h2 class="section-title" id="appsTitle">تطبيقاتي وألعابي</h2>
-        <div class="grid">
-            <div class="item" onclick="openApp('snake.html')"><i class="fas fa-gamepad"></i><br><span class="t-app1">الثعبان</span></div>
-            <div class="item" onclick="openApp('race.html')"><i class="fas fa-car"></i><br><span class="t-app2">السباق</span></div>
-            <div class="item" onclick="openApp('calc.html')"><i class="fas fa-calculator"></i><br><span class="t-app3">الحاسبة</span></div>
-            <div class="item" onclick="openApp('contact.html')"><i class="fas fa-envelope"></i><br><span class="t-app4">اتصل بي</span></div>
-        </div>
-
-        <h2 class="section-title" id="galleryTitle">معرض الصور</h2>
-        <div class="gallery">
-            <img src="https://picsum.photos/400/300?random=1" class="gallery-img">
-            <img src="https://picsum.photos/400/300?random=2" class="gallery-img">
-            <img src="https://picsum.photos/400/300?random=3" class="gallery-img">
-            <img src="https://picsum.photos/400/300?random=4" class="gallery-img">
-        </div>
+    <div class="content">
+        <h2 class="section-title" id="appsTitle">الألعاب والتطبيقات</h2>
+        <div class="grid" id="appGrid">
+            </div>
     </div>
 
     <div id="gameModal" class="modal">
@@ -73,34 +57,47 @@
 
     <script>
         let currentLang = 'ar';
-        const translations = {
-            ar: {
-                logo: "محمد", apps: "تطبيقاتي وألعابي", gallery: "معرض الصور", lang: "English",
-                app1: "الثعبان", app2: "السباق", app3: "الحاسبة", app4: "اتصل بي"
-            },
-            en: {
-                logo: "MOHAMED", apps: "Apps & Games", gallery: "Photo Gallery", lang: "العربية",
-                app1: "Snake", app2: "Racing", app3: "Calculator", app4: "Contact"
-            }
-        };
+        const apps = [
+            { id: 'snake', icon: 'fa-gamepad', ar: 'الثعبان', en: 'Snake', url: 'snake.html' },
+            { id: 'race', icon: 'fa-car', ar: 'السباق', en: 'Racing', url: 'race.html' },
+            { id: 'shooter', icon: 'fa-crosshairs', ar: 'الصائد', en: 'Shooter', url: 'shooter.html' },
+            { id: 'jump', icon: 'fa-arrow-up', ar: 'القفز', en: 'Jump', url: 'jump.html' },
+            { id: 'whack', icon: 'fa-hammer', ar: 'ضرب الذهب', en: 'Whack', url: 'whack.html' },
+            { id: 'memory', icon: 'fa-brain', ar: 'الذاكرة', en: 'Memory', url: 'memory.html' },
+            { id: 'calc', icon: 'fa-calculator', ar: 'الحاسبة', en: 'Calculator', url: 'calc.html' },
+            { id: 'todo', icon: 'fa-tasks', ar: 'المهام', en: 'Todo', url: 'todo.html' },
+            { id: 'notes', icon: 'fa-sticky-note', ar: 'الملاحظات', en: 'Notes', url: 'notes.html' },
+            { id: 'weather', icon: 'fa-cloud-sun', ar: 'الطقس', en: 'Weather', url: 'weather.html' },
+            { id: 'shop', icon: 'fa-shopping-bag', ar: 'المتجر', en: 'Shop', url: 'shop.html' },
+            { id: 'forum', icon: 'fa-users', ar: 'المنتدى', en: 'Forum', url: 'forum.html' },
+            { id: 'contact', icon: 'fa-envelope', ar: 'اتصل بي', en: 'Contact', url: 'contact.html' },
+            { id: 'admin', icon: 'fa-user-shield', ar: 'المدير', en: 'Admin', url: 'admin.html' }
+        ];
+
+        function renderApps() {
+            const grid = document.getElementById('appGrid');
+            grid.innerHTML = '';
+            apps.forEach(app => {
+                grid.innerHTML += `
+                    <div class="item" onclick="openApp('${app.url}')">
+                        <i class="fas ${app.icon}"></i><br>
+                        <span>${currentLang === 'ar' ? app.ar : app.en}</span>
+                    </div>`;
+            });
+        }
 
         function toggleLang() {
             currentLang = currentLang === 'ar' ? 'en' : 'ar';
             document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-            document.getElementById('logoText').innerText = translations[currentLang].logo;
-            document.getElementById('appsTitle').innerText = translations[currentLang].apps;
-            document.getElementById('galleryTitle').innerText = translations[currentLang].gallery;
-            document.getElementById('langBtn').innerText = translations[currentLang].lang;
-            document.querySelector('.t-app1').innerText = translations[currentLang].app1;
-            document.querySelector('.t-app2').innerText = translations[currentLang].app2;
-            document.querySelector('.t-app3').innerText = translations[currentLang].app3;
-            document.querySelector('.t-app4').innerText = translations[currentLang].app4;
+            document.getElementById('logoText').innerText = currentLang === 'ar' ? 'محمد' : 'MOHAMED';
+            document.getElementById('appsTitle').innerText = currentLang === 'ar' ? 'الألعاب والتطبيقات' : 'Games & Apps';
+            document.getElementById('langBtn').innerText = currentLang === 'ar' ? 'English' : 'العربية';
+            renderApps();
         }
 
         function openApp(url) { document.getElementById('appFrame').src = url; document.getElementById('gameModal').style.display = "block"; }
         function closeApp() { document.getElementById('gameModal').style.display = "none"; document.getElementById('appFrame').src = ""; }
 
-        // محرك النجوم
         const canvas = document.getElementById('starCanvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
@@ -112,7 +109,7 @@
             stars.forEach(s => { ctx.beginPath(); ctx.arc(s.x, s.y, s.s, 0, Math.PI*2); ctx.fill(); s.y += 0.5; if(s.y > canvas.height) s.y=0; });
             requestAnimationFrame(animate);
         }
-        function init() { animate(); setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000); }
+        function init() { renderApps(); animate(); setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000); }
     </script>
 </body>
 </html>
