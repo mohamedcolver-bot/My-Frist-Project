@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ملاحظاتي | محمد</title>
+    <style>
+        body { background: #0a0a0a; color: gold; font-family: sans-serif; padding: 20px; text-align: center; }
+        textarea { width: 80%; height: 200px; background: #1a1a1a; color: white; border: 1px solid gold; border-radius: 10px; padding: 15px; }
+        button { background: gold; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>دفتر الملاحظات الذكي</h1>
+    <textarea id="noteArea" placeholder="اكتب أفكارك هنا..."></textarea><br>
+    <button onclick="saveNote()">حفظ الملاحظة</button>
+    <p id="status"></p>
+    <a href="index.html" style="color:white; display:block; margin-top:20px;">العودة</a>
+    <script>
+        document.getElementById('noteArea').value = localStorage.getItem('myNote') || "";
+        function saveNote() {
+            localStorage.setItem('myNote', document.getElementById('noteArea').value);
+            document.getElementById('status').innerText = "تم الحفظ بنجاح! ✅";
+            setTimeout(() => document.getElementById('status').innerText = "", 2000);
+        }
+    </script>
+</body>
+</html>

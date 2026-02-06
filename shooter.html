@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>صائد الفضاء | محمد</title>
+    <style>
+        body { margin: 0; background: #000; overflow: hidden; color: gold; text-align: center; font-family: sans-serif; }
+        canvas { display: block; background: #050505; }
+        #ui { position: absolute; top: 10px; width: 100%; pointer-events: none; }
+    </style>
+</head>
+<body>
+    <div id="ui"><h1>النقاط: <span id="score">0</span></h1><p>انقر لإطلاق الليزر</p></div>
+    <canvas id="gameCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let score = 0;
+        let particles = [];
+
+        canvas.addEventListener('mousedown', (e) => {
+            score += 10;
+            document.getElementById('score').innerText = score;
+            createExplosion(e.clientX, e.clientY);
+        });
+
+        function createExplosion(x, y) {
+            for(let i=0; i<10; i++) {
+                particles.push({x, y, vx: (Math.random()-0.5)*10, vy: (Math.random()-0.5)*10, life: 20});
+            }
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0,0,0,0.2)';
+            ctx.fillRect(0,0,canvas.width, canvas.height);
+            particles.forEach((p, i) => {
+                ctx.fillStyle = 'gold';
+                ctx.fillRect(p.x, p.y, 3, 3);
+                p.x += p.vx; p.y += p.vy; p.life--;
+                if(p.life <= 0) particles.splice(i, 1);
+            });
+            requestAnimationFrame(draw);
+        }
+        draw();
+    </script>
+</body>
+</html>
