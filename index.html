@@ -21,11 +21,11 @@
         .section-title { color: var(--gold); margin: 30px 0 15px; border-bottom: 2px solid var(--gold); width: 80%; text-align: center; padding-bottom: 5px; }
 
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; width: 100%; max-width: 1000px; }
-        .item { background: rgba(26, 26, 26, 0.9); padding: 20px; border-radius: 15px; text-align: center; cursor: pointer; border: 1px solid #333; transition: 0.3s; }
+        .item { background: rgba(26, 26, 26, 0.9); padding: 20px; border-radius: 15px; text-align: center; cursor: pointer; border: 1px solid #333; transition: 0.3s; text-decoration: none; color: inherit; }
         .item:hover { border-color: var(--gold); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); }
         .item i { font-size: 30px; color: var(--gold); margin-bottom: 10px; }
+        .item.whatsapp-item i { color: #25D366; } /* لون الواتساب الأصلي */
 
-        /* Modal */
         .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); }
         .modal-content { position: relative; width: 95%; height: 90%; margin: 2% auto; border: 1px solid var(--gold); border-radius: 15px; overflow: hidden; }
         .close { position: absolute; top: 10px; left: 20px; color: white; font-size: 40px; cursor: pointer; z-index: 3001; }
@@ -46,8 +46,7 @@
 
     <div class="content">
         <h2 class="section-title" id="appsTitle">الألعاب والتطبيقات</h2>
-        <div class="grid" id="appGrid">
-            </div>
+        <div class="grid" id="appGrid"></div>
     </div>
 
     <div id="gameModal" class="modal">
@@ -58,29 +57,32 @@
     <script>
         let currentLang = 'ar';
         const apps = [
-            { id: 'snake', icon: 'fa-gamepad', ar: 'الثعبان', en: 'Snake', url: 'snake.html' },
-            { id: 'race', icon: 'fa-car', ar: 'السباق', en: 'Racing', url: 'race.html' },
-            { id: 'shooter', icon: 'fa-crosshairs', ar: 'الصائد', en: 'Shooter', url: 'shooter.html' },
-            { id: 'jump', icon: 'fa-arrow-up', ar: 'القفز', en: 'Jump', url: 'jump.html' },
-            { id: 'whack', icon: 'fa-hammer', ar: 'ضرب الذهب', en: 'Whack', url: 'whack.html' },
-            { id: 'memory', icon: 'fa-brain', ar: 'الذاكرة', en: 'Memory', url: 'memory.html' },
-            { id: 'calc', icon: 'fa-calculator', ar: 'الحاسبة', en: 'Calculator', url: 'calc.html' },
-            { id: 'todo', icon: 'fa-tasks', ar: 'المهام', en: 'Todo', url: 'todo.html' },
-            { id: 'notes', icon: 'fa-sticky-note', ar: 'الملاحظات', en: 'Notes', url: 'notes.html' },
-            { id: 'weather', icon: 'fa-cloud-sun', ar: 'الطقس', en: 'Weather', url: 'weather.html' },
-            { id: 'shop', icon: 'fa-shopping-bag', ar: 'المتجر', en: 'Shop', url: 'shop.html' },
-            { id: 'forum', icon: 'fa-users', ar: 'المنتدى', en: 'Forum', url: 'forum.html' },
-            { id: 'contact', icon: 'fa-envelope', ar: 'اتصل بي', en: 'Contact', url: 'contact.html' },
-            { id: 'admin', icon: 'fa-user-shield', ar: 'المدير', en: 'Admin', url: 'admin.html' }
+            { id: 'whatsapp', icon: 'fab fa-whatsapp', ar: 'واتساب', en: 'WhatsApp', url: 'https://wa.me/21655391749', external: true },
+            { id: 'snake', icon: 'fas fa-gamepad', ar: 'الثعبان', en: 'Snake', url: 'snake.html' },
+            { id: 'race', icon: 'fas fa-car', ar: 'السباق', en: 'Racing', url: 'race.html' },
+            { id: 'shooter', icon: 'fas fa-crosshairs', ar: 'الصائد', en: 'Shooter', url: 'shooter.html' },
+            { id: 'jump', icon: 'fas fa-arrow-up', ar: 'القفز', en: 'Jump', url: 'jump.html' },
+            { id: 'whack', icon: 'fas fa-hammer', ar: 'ضرب الذهب', en: 'Whack', url: 'whack.html' },
+            { id: 'memory', icon: 'fas fa-brain', ar: 'الذاكرة', en: 'Memory', url: 'memory.html' },
+            { id: 'calc', icon: 'fas fa-calculator', ar: 'الحاسبة', en: 'Calculator', url: 'calc.html' },
+            { id: 'todo', icon: 'fas fa-tasks', ar: 'المهام', en: 'Todo', url: 'todo.html' },
+            { id: 'notes', icon: 'fas fa-sticky-note', ar: 'الملاحظات', en: 'Notes', url: 'notes.html' },
+            { id: 'weather', icon: 'fas fa-cloud-sun', ar: 'الطقس', en: 'Weather', url: 'weather.html' },
+            { id: 'shop', icon: 'fas fa-shopping-bag', ar: 'المتجر', en: 'Shop', url: 'shop.html' },
+            { id: 'forum', icon: 'fas fa-users', ar: 'المنتدى', en: 'Forum', url: 'forum.html' },
+            { id: 'contact', icon: 'fas fa-envelope', ar: 'اتصل بي', en: 'Contact', url: 'contact.html' },
+            { id: 'admin', icon: 'fas fa-user-shield', ar: 'المدير', en: 'Admin', url: 'admin.html' }
         ];
 
         function renderApps() {
             const grid = document.getElementById('appGrid');
             grid.innerHTML = '';
             apps.forEach(app => {
+                const action = app.external ? `onclick="window.open('${app.url}', '_blank')"` : `onclick="openApp('${app.url}')"`;
+                const specialClass = app.id === 'whatsapp' ? 'whatsapp-item' : '';
                 grid.innerHTML += `
-                    <div class="item" onclick="openApp('${app.url}')">
-                        <i class="fas ${app.icon}"></i><br>
+                    <div class="item ${specialClass}" ${action}>
+                        <i class="${app.icon}"></i><br>
                         <span>${currentLang === 'ar' ? app.ar : app.en}</span>
                     </div>`;
             });
