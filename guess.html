@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { background: #050505; color: #d4af37; text-align: center; font-family: sans-serif; padding-top: 50px; }
+        input { padding: 10px; border-radius: 10px; border: 1px solid #d4af37; background: #111; color: white; width: 60px; text-align: center; }
+        button { background: #d4af37; color: black; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; }
+        #message { margin-top: 20px; font-size: 1.2em; }
+    </style>
+</head>
+<body>
+    <h2>تخمين الرقم (1 - 100)</h2>
+    <input type="number" id="guessInput" placeholder="؟">
+    <button onclick="checkGuess()">خمن!</button>
+    <p id="message">جرب حظك!</p>
+
+    <script>
+        let target = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+        function checkGuess() {
+            let guess = document.getElementById('guessInput').value;
+            attempts++;
+            let msg = document.getElementById('message');
+            if (guess == target) {
+                msg.innerText = `مبروك! عرفت الرقم (${target}) في ${attempts} محاولات!`;
+                target = Math.floor(Math.random() * 100) + 1; attempts = 0;
+            } else if (guess < target) { msg.innerText = "أكبر قليلاً.."; }
+            else { msg.innerText = "أصغر قليلاً.."; }
+        }
+    </script>
+</body>
+</html>
