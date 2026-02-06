@@ -3,132 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohamed Empire</title>
+    <title>Mohamed Empire | Pro Edition</title>
     <link rel="icon" href="https://img.icons8.com/flat-round/64/crown.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --bg: #050505; --gold: #d4af37; --text: #e0e0e0; }
-        body, html { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: sans-serif; overflow-x: hidden; }
+        :root { --bg: #050505; --gold: #d4af37; --glass: rgba(255, 255, 255, 0.05); }
+        body, html { margin: 0; padding: 0; background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
         #starCanvas { position: fixed; top: 0; left: 0; z-index: -1; }
         
-        .top-nav { width: 100%; display: flex; justify-content: space-between; padding: 15px 30px; box-sizing: border-box; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); position: sticky; top:0; z-index: 2000; align-items: center; }
-        .nav-buttons { display: flex; gap: 10px; }
-        .nav-btn { background: none; border: 1px solid var(--gold); color: var(--gold); padding: 5px 15px; cursor: pointer; border-radius: 20px; font-size: 14px; transition: 0.3s; }
-        .nav-btn:hover { background: var(--gold); color: black; }
+        /* الهيدر الزجاجي */
+        .top-nav { width: 100%; display: flex; justify-content: space-between; padding: 15px 30px; box-sizing: border-box; background: rgba(0,0,0,0.7); backdrop-filter: blur(15px); position: sticky; top:0; z-index: 2000; border-bottom: 1px solid rgba(212,175,55,0.2); }
+        .nav-btn { background: var(--glass); border: 1px solid var(--gold); color: var(--gold); padding: 8px 18px; cursor: pointer; border-radius: 25px; transition: 0.4s; font-weight: bold; }
+        .nav-btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px var(--gold); }
 
-        .logo-container { text-align: center; margin-top: 20px; }
-        .main-logo { font-size: 4em; color: var(--gold); text-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
+        .logo-container { text-align: center; margin: 40px 0; animation: fadeIn 2s; }
+        .main-logo { font-size: 5em; color: var(--gold); text-shadow: 0 0 30px rgba(212, 175, 55, 0.6); letter-spacing: 5px; }
 
-        .content { display: flex; flex-direction: column; align-items: center; padding: 20px; }
-        .section-title { color: var(--gold); margin: 30px 0 15px; border-bottom: 2px solid var(--gold); width: 80%; text-align: center; padding-bottom: 5px; }
+        /* شبكة الأيقونات الزجاجية */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 20px; width: 90%; max-width: 1100px; margin: auto; }
+        .item { background: var(--glass); backdrop-filter: blur(10px); padding: 25px; border-radius: 20px; text-align: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); transition: 0.5s; }
+        .item:hover { transform: translateY(-10px) rotate(2deg); border-color: var(--gold); background: rgba(212, 175, 55, 0.1); }
+        .item i { font-size: 35px; color: var(--gold); margin-bottom: 15px; display: block; }
+        .item span { font-weight: 500; font-size: 15px; }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; width: 100%; max-width: 1000px; }
-        .item { background: rgba(26, 26, 26, 0.9); padding: 20px; border-radius: 15px; text-align: center; cursor: pointer; border: 1px solid #333; transition: 0.3s; }
-        .item:hover { border-color: var(--gold); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); }
-        .item i { font-size: 30px; color: var(--gold); margin-bottom: 10px; }
+        .section-title { color: var(--gold); text-align: center; margin: 50px 0 30px; font-size: 2em; text-transform: uppercase; }
 
-        /* قسم التعليقات */
-        .comments-section { width: 90%; max-width: 800px; margin-top: 50px; background: rgba(20, 20, 20, 0.8); padding: 20px; border-radius: 15px; border: 1px solid #333; }
-        #disqus_thread { width: 100%; }
+        /* فوتر التعليقات */
+        .comments-box { width: 90%; max-width: 900px; margin: 60px auto; background: var(--glass); padding: 30px; border-radius: 25px; border: 1px solid rgba(212,175,55,0.2); }
 
-        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); }
-        .modal-content { position: relative; width: 95%; height: 90%; margin: 2% auto; border: 1px solid var(--gold); border-radius: 15px; overflow: hidden; }
-        .close { position: absolute; top: 10px; left: 20px; color: white; font-size: 40px; cursor: pointer; z-index: 3001; }
-        iframe { width: 100%; height: 100%; border: none; }
+        @keyframes fadeIn { from {opacity: 0; transform: translateY(-20px);} to {opacity: 1; transform: translateY(0);} }
+        
+        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); }
+        .modal-content { position: relative; width: 95%; height: 90%; margin: 2% auto; border: 2px solid var(--gold); border-radius: 20px; overflow: hidden; }
+        .close { position: absolute; top: 15px; left: 25px; color: #fff; font-size: 45px; cursor: pointer; z-index: 3001; }
     </style>
 </head>
 <body onload="init()">
     <canvas id="starCanvas"></canvas>
 
-    <div class="top-nav">
-        <div id="clock"></div>
+    <nav class="top-nav">
+        <div id="clock" style="color: var(--gold); font-weight: bold;"></div>
         <div class="nav-buttons">
-            <button class="nav-btn" onclick="shareSite()"><i class="fas fa-share-alt"></i> <span id="shareText">مشاركة</span></button>
-            <button class="nav-btn" id="langBtn" onclick="toggleLang()">English</button>
+            <button class="nav-btn" onclick="shareSite()"><i class="fas fa-paper-plane"></i> <span id="shareT">مشاركة</span></button>
+            <button class="nav-btn" onclick="toggleLang()"><i class="fas fa-language"></i> <span id="langT">EN</span></button>
         </div>
+    </nav>
+
+    <div class="logo-container">
+        <h1 class="main-logo" id="logoText">محمد</h1>
     </div>
 
-    <div class="logo-container"><h1 class="main-logo" id="logoText">محمد</h1></div>
+    <div class="grid" id="appGrid"></div>
 
-    <div class="content">
-        <h2 class="section-title" id="appsTitle">الألعاب والتطبيقات</h2>
-        <div class="grid" id="appGrid"></div>
-
-        <h2 class="section-title" id="commentsTitle">ركن الزوار</h2>
-        <div class="comments-section">
-            <p style="text-align: center; font-size: 0.9em; color: var(--gold);">اترك بصمتك هنا!</p>
-            <div id="disqus_thread"></div>
-        </div>
+    <h2 class="section-title" id="commTitle">ركن الإبداع</h2>
+    <div class="comments-box">
+        <div id="disqus_thread"></div>
     </div>
 
     <div id="gameModal" class="modal">
         <span class="close" onclick="closeApp()">&times;</span>
-        <div class="modal-content"><iframe id="appFrame"></iframe></div>
+        <div class="modal-content"><iframe id="appFrame" src=""></iframe></div>
     </div>
 
     <script>
-        // دالة Disqus للتعليقات
-        (function() { 
-            var d = document, s = d.createElement('script');
-            s.src = 'https://mohamed-empire.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })();
-
         let currentLang = 'ar';
         const apps = [
-            { id: 'whatsapp', icon: 'fab fa-whatsapp', ar: 'واتساب', en: 'WhatsApp', url: 'https://wa.me/21655391749', external: true },
-            { id: 'snake', icon: 'fas fa-gamepad', ar: 'الثعبان', en: 'Snake', url: 'snake.html' },
-            { id: 'race', icon: 'fas fa-car', ar: 'السباق', en: 'Racing', url: 'race.html' },
-            { id: 'shooter', icon: 'fas fa-crosshairs', ar: 'الصائد', en: 'Shooter', url: 'shooter.html' },
-            { id: 'jump', icon: 'fas fa-arrow-up', ar: 'القفز', en: 'Jump', url: 'jump.html' },
-            { id: 'whack', icon: 'fas fa-hammer', ar: 'ضرب الذهب', en: 'Whack', url: 'whack.html' },
-            { id: 'memory', icon: 'fas fa-brain', ar: 'الذاكرة', en: 'Memory', url: 'memory.html' },
-            { id: 'calc', icon: 'fas fa-calculator', ar: 'الحاسبة', en: 'Calculator', url: 'calc.html' },
-            { id: 'todo', icon: 'fas fa-tasks', ar: 'المهام', en: 'Todo', url: 'todo.html' },
-            { id: 'notes', icon: 'fas fa-sticky-note', ar: 'الملاحظات', en: 'Notes', url: 'notes.html' },
-            { id: 'weather', icon: 'fas fa-cloud-sun', ar: 'الطقس', en: 'Weather', url: 'weather.html' },
-            { id: 'shop', icon: 'fas fa-shopping-bag', ar: 'المتجر', en: 'Shop', url: 'shop.html' },
-            { id: 'forum', icon: 'fas fa-users', ar: 'المنتدى', en: 'Forum', url: 'forum.html' },
-            { id: 'contact', icon: 'fas fa-envelope', ar: 'اتصل بي', en: 'Contact', url: 'contact.html' },
-            { id: 'admin', icon: 'fas fa-user-shield', ar: 'المدير', en: 'Admin', url: 'admin.html' }
+            { id: 'wa', icon: 'fab fa-whatsapp', ar: 'واتساب', en: 'WhatsApp', url: 'https://wa.me/21655391749', ext: true },
+            { id: 'sn', icon: 'fas fa-gamepad', ar: 'الثعبان', en: 'Snake', url: 'snake.html' },
+            { id: 'rc', icon: 'fas fa-car', ar: 'السباق', en: 'Racing', url: 'race.html' },
+            { id: 'sh', icon: 'fas fa-crosshairs', ar: 'الصائد', en: 'Shooter', url: 'shooter.html' },
+            { id: 'cl', icon: 'fas fa-calculator', ar: 'الحاسبة', en: 'Calculator', url: 'calc.html' },
+            { id: 'td', icon: 'fas fa-tasks', ar: 'المهام', en: 'Tasks', url: 'todo.html' },
+            { id: 'nt', icon: 'fas fa-sticky-note', ar: 'ملاحظات', en: 'Notes', url: 'notes.html' },
+            { id: 'ad', icon: 'fas fa-user-shield', ar: 'المدير', en: 'Admin', url: 'admin.html' }
         ];
 
         function renderApps() {
             const grid = document.getElementById('appGrid');
-            grid.innerHTML = '';
-            apps.forEach(app => {
-                const action = app.external ? `onclick="window.open('${app.url}', '_blank')"` : `onclick="openApp('${app.url}')"`;
-                grid.innerHTML += `<div class="item" ${action}><i class="${app.icon}"></i><br><span>${currentLang === 'ar' ? app.ar : app.en}</span></div>`;
-            });
+            grid.innerHTML = apps.map(app => `
+                <div class="item" onclick="${app.ext ? `window.open('${app.url}')` : `openApp('${app.url}')`}">
+                    <i class="${app.icon}"></i>
+                    <span>${currentLang === 'ar' ? app.ar : app.en}</span>
+                </div>
+            `).join('');
         }
 
         function toggleLang() {
             currentLang = currentLang === 'ar' ? 'en' : 'ar';
             document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
             document.getElementById('logoText').innerText = currentLang === 'ar' ? 'محمد' : 'MOHAMED';
-            document.getElementById('appsTitle').innerText = currentLang === 'ar' ? 'الألعاب والتطبيقات' : 'Games & Apps';
-            document.getElementById('commentsTitle').innerText = currentLang === 'ar' ? 'ركن الزوار' : 'Guestbook';
-            document.getElementById('langBtn').innerText = currentLang === 'ar' ? 'English' : 'العربية';
-            document.getElementById('shareText').innerText = currentLang === 'ar' ? 'مشاركة' : 'Share';
+            document.getElementById('langT').innerText = currentLang === 'ar' ? 'EN' : 'AR';
+            document.getElementById('commTitle').innerText = currentLang === 'ar' ? 'ركن الإبداع' : 'Guest Corner';
             renderApps();
         }
 
         function openApp(url) { document.getElementById('appFrame').src = url; document.getElementById('gameModal').style.display = "block"; }
         function closeApp() { document.getElementById('gameModal').style.display = "none"; document.getElementById('appFrame').src = ""; }
 
+        function shareSite() {
+            if(navigator.share) navigator.share({title: 'Mohamed Empire', url: window.location.href});
+            else alert("تم نسخ الرابط بنجاح!");
+        }
+
+        // محرك النجوم المتقدم
         const canvas = document.getElementById('starCanvas');
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         let stars = [];
-        for(let i=0; i<100; i++) stars.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, s:Math.random()*2});
-        function animate() {
-            ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.fillStyle = '#d4af37';
-            stars.forEach(s => { ctx.beginPath(); ctx.arc(s.x, s.y, s.s, 0, Math.PI*2); ctx.fill(); s.y += 0.5; if(s.y > canvas.height) s.y=0; });
-            requestAnimationFrame(animate);
+        function initStars() {
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            stars = Array.from({length: 150}, () => ({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.5, d: Math.random()*0.5}));
         }
-        function init() { renderApps(); animate(); setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000); }
+        function drawStars() {
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            ctx.fillStyle = "#d4af37";
+            stars.forEach(s => {
+                ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill();
+                s.y += s.d; if(s.y > canvas.height) s.y = 0;
+            });
+            requestAnimationFrame(drawStars);
+        }
+
+        function init() {
+            initStars(); drawStars(); renderApps();
+            setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
+        }
     </script>
 </body>
 </html>
