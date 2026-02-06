@@ -3,29 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقعي الشخصي | محمد</title>
+    <title>تطبيق محمد التفاعلي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { font-family: sans-serif; background-color: #f0f2f5; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; max-width: 350px; width: 90%; }
-        .profile-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid #3498db; margin-bottom: 15px; }
-        h1 { color: #1c1e21; margin: 10px 0; font-size: 24px; }
-        p { color: #606770; font-size: 16px; line-height: 1.5; margin-bottom: 20px; }
-        .links { display: flex; flex-direction: column; gap: 12px; }
-        .btn { display: block; padding: 12px; text-decoration: none; border-radius: 8px; color: white; font-weight: bold; transition: 0.3s; font-size: 16px; }
-        .whatsapp { background-color: #25D366; }
-        .github { background-color: #24292e; }
-        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+        :root { --bg: #f0f2f5; --card: #fff; --text: #333; }
+        .dark-theme { --bg: #1a1a1a; --card: #2d2d2d; --text: #fff; }
+        
+        body { background: var(--bg); color: var(--text); font-family: sans-serif; transition: 0.5s; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .card { background: var(--card); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; max-width: 350px; width: 90%; }
+        .profile-img { width: 130px; height: 130px; border-radius: 50%; border: 4px solid #3498db; margin-bottom: 15px; }
+        
+        .theme-btn { background: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 50px; cursor: pointer; margin-bottom: 20px; font-weight: bold; }
+        .links { display: flex; flex-direction: column; gap: 10px; }
+        .btn { padding: 12px; text-decoration: none; border-radius: 10px; color: white; font-weight: bold; }
+        .whatsapp { background: #25D366; }
+        .github { background: #24292e; }
     </style>
 </head>
 <body>
     <div class="card">
+        <button class="theme-btn" onclick="toggleTheme()">تبديل الوضع الليلي <i class="fas fa-moon"></i></button>
+        <br>
         <img src="me.jpg" alt="محمد" class="profile-img">
         <h1>محمد</h1>
-        <p>مرحباً! أنا مطور ويب من تونس. يسعدني تواصلكم معي لمناقشة المشاريع البرمجية.</p>
+        <p>مرحباً بك في موقعي التفاعلي الأول!</p>
         <div class="links">
-            <a href="https://wa.me/21655391749" class="btn whatsapp" target="_blank">تواصل معي عبر واتساب</a>
-            <a href="https://github.com/mohamedcolver-bot" class="btn github" target="_blank">حسابي على GitHub</a>
+            <a href="https://wa.me/21655391749" class="btn whatsapp"><i class="fab fa-whatsapp"></i> واتساب</a>
+            <a href="https://github.com/mohamedcolver-bot" class="btn github"><i class="fab fa-github"></i> جيت هاب</a>
         </div>
     </div>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle("dark-theme");
+        }
+    </script>
 </body>
 </html>
