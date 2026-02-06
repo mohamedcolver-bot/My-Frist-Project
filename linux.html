@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { background: #050505; color: #d4af37; font-family: sans-serif; padding: 20px; }
+        .cmd-box { background: #111; border: 1px solid #d4af37; padding: 15px; border-radius: 10px; margin-bottom: 15px; position: relative; }
+        code { color: #fff; font-family: monospace; font-size: 1.1em; }
+        .copy-btn { position: absolute; left: 10px; top: 10px; background: #d4af37; border: none; cursor: pointer; border-radius: 5px; padding: 5px; }
+        h2 { border-bottom: 2px solid #d4af37; display: inline-block; }
+    </style>
+</head>
+<body>
+    <h2>إمبراطورية الأوامر 🐧</h2>
+    
+    <div class="cmd-box">
+        <p>تحديث وتنظيف شامل للمنظومة:</p>
+        <code>sudo apt update && sudo apt upgrade -y && sudo apt autoremove</code>
+    </div>
+
+    <div class="cmd-box">
+        <p>إفراغ الرام (RAM) وتسريع الجهاز:</p>
+        <code>sudo sync; echo 3 | sudo tee /proc/sys/vm/drop_caches</code>
+    </div>
+
+    <div class="cmd-box">
+        <p>معرفة استهلاك موارد الجهاز:</p>
+        <code>htop</code>
+    </div>
+
+    <div class="cmd-box">
+        <p>رفع الموقع لـ GitHub بضغطة واحدة:</p>
+        <code>git add . && git commit -m "update" && git push</code>
+    </div>
+
+    <button onclick="window.location.href='index.html'" style="background:none; color:#d4af37; border:1px solid #d4af37; padding:10px; cursor:pointer; border-radius:10px;">العودة للرئيسية</button>
+</body>
+</html>
