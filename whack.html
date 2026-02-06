@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>لعبة الضرب السريع | محمد</title>
+    <style>
+        body { background: #1a1a1a; color: #d4af37; font-family: sans-serif; text-align: center; }
+        .grid { display: grid; grid-template-columns: repeat(3, 100px); gap: 10px; justify-content: center; margin-top: 20px; }
+        .hole { width: 100px; height: 100px; background: #333; border-radius: 50%; position: relative; cursor: crosshair; }
+        .mole { width: 80px; height: 80px; background: #d4af37; border-radius: 50%; position: absolute; top: 10px; left: 10px; display: none; }
+    </style>
+</head>
+<body>
+    <h1>اضرب الذهب!</h1>
+    <h2 id="score">النقاط: 0</h2>
+    <div class="grid" id="grid"></div>
+    <p><a href="index.html" style="color:white;">العودة للرئيسية</a></p>
+
+    <script>
+        let score = 0;
+        const grid = document.getElementById('grid');
+        for (let i = 0; i < 9; i++) {
+            const hole = document.createElement('div');
+            hole.className = 'hole';
+            const mole = document.createElement('div');
+            mole.className = 'mole';
+            mole.onclick = () => { score++; document.getElementById('score').innerText = "النقاط: " + score; mole.style.display = 'none'; };
+            hole.appendChild(mole);
+            grid.appendChild(hole);
+        }
+        setInterval(() => {
+            const moles = document.querySelectorAll('.mole');
+            moles.forEach(m => m.style.display = 'none');
+            const random = Math.floor(Math.random() * 9);
+            moles[random].style.display = 'block';
+        }, 800);
+    </script>
+</body>
+</html>
