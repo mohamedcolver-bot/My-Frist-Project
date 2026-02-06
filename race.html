@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>سباق السيارات | محمد</title>
+    <style>
+        body { margin: 0; background: #111; color: gold; text-align: center; font-family: sans-serif; overflow: hidden; }
+        #gameGuide { position: absolute; width: 100%; top: 10px; }
+        #road { width: 300px; height: 500px; background: #333; margin: 50px auto; position: relative; border-left: 5px dashed gold; border-right: 5px dashed gold; overflow: hidden; }
+        #car { width: 40px; height: 70px; background: gold; position: absolute; bottom: 10px; left: 130px; border-radius: 5px; }
+        .enemy { width: 40px; height: 70px; background: red; position: absolute; top: -100px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div id="gameGuide"><h1>استخدم الأسهم للتحرك</h1><h2 id="score">النقاط: 0</h2></div>
+    <div id="road"><div id="car"></div></div>
+    <p><a href="index.html" style="color:white;">الخروج</a></p>
+
+    <script>
+        const car = document.getElementById('car');
+        const road = document.getElementById('road');
+        let score = 0;
+        let carPos = 130;
+
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'ArrowLeft' && carPos > 10) carPos -= 20;
+            if(e.key === 'ArrowRight' && carPos < 250) carPos += 20;
+            car.style.left = carPos + 'px';
+        });
+
+        function createEnemy() {
+            const enemy = document.createElement('div');
+            enemy.className = 'enemy';
+            enemy.style.left = Math.floor(Math.random() * 250) + 'px';
+            road.appendChild(enemy);
+            let top = -100;
+            let interval = setInterval(() => {
+                top += 5;
+                enemy.style.top = top + 'px';
+                if(top > 500) { clearInterval(interval); road.removeChild(enemy); score++; document.getElementById('score').innerText = "النقاط: " + score; }
+                
+                // كشف الاصطدام
+                let cRect = car.getBoundingClientRect();
+                let eRect = enemy.getBoundingClientRect();
+                if(!(cRect.right < eRect.left || cRect.left > eRect.right || cRect.bottom < eRect.top || cRect.top > eRect.bottom)) {
+                    alert("انتهت اللعبة! نقاطك: " + score);
+                    location.reload();
+                }
+            }, 20);
+        }
+        setInterval(createEnemy, 1500);
+    </script>
+</body>
+</html>
