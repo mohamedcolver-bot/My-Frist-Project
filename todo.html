@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>مهامي</title>
+</head>
+<body>
+    <h1>قائمة مهام محمد</h1>
+    <input type="text" id="t">
+    <button onclick="add()">إضافة</button>
+    <ul id="l"></ul>
+    <script>
+        function add() {
+            let i = document.getElementById("t");
+            let l = document.getElementById("l");
+            if(i.value) {
+                l.innerHTML += "<li>" + i.value + "</li>";
+                i.value = "";
+            }
+        }
+    </script>
+</body>
+</html>
