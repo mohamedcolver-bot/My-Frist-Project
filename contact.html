@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تواصل مع محمد</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --bg: #050505; --gold: #d4af37; --text: #e0e0e0; --card: rgba(26, 26, 26, 0.9); }
+        body { background: var(--bg); color: var(--text); font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .contact-card { background: var(--card); padding: 40px; border-radius: 20px; border: 1px solid var(--gold); box-shadow: 0 0 30px rgba(212, 175, 55, 0.2); width: 100%; max-width: 500px; text-align: center; }
+        h2 { color: var(--gold); margin-bottom: 20px; }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; background: #111; border: 1px solid #333; color: white; border-radius: 8px; box-sizing: border-box; }
+        input:focus, textarea:focus { border-color: var(--gold); outline: none; }
+        .send-btn { background: var(--gold); color: black; border: none; padding: 12px 30px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; width: 100%; }
+        .send-btn:hover { background: #f1c40f; transform: scale(1.02); }
+        .back { display: block; margin-top: 20px; color: var(--gold); text-decoration: none; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="contact-card">
+        <h2><i class="fas fa-paper-plane"></i> أرسل لي رسالة</h2>
+        <p>لديك فكرة مشروع أو استفسار؟ أنا هنا للرد عليك.</p>
+        
+        <form action="https://formspree.io/f/mohamed_contact" method="POST">
+            <input type="text" name="name" placeholder="اسمك الكامل" required>
+            <input type="email" name="_replyto" placeholder="بريدك الإلكتروني" required>
+            <textarea name="message" rows="5" placeholder="اكتب رسالتك هنا..." required></textarea>
+            <button type="submit" class="send-btn">إرسال الآن</button>
+        </form>
+        
+        <a href="index.html" class="back">← العودة للرئيسية</a>
+    </div>
+</body>
+</html>
