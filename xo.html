@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <style>
+        body { background: #000; color: #d4af37; text-align: center; font-family: sans-serif; }
+        .board { display: grid; grid-template-columns: repeat(3, 100px); gap: 5px; justify-content: center; margin-top: 50px; }
+        .cell { width: 100px; height: 100px; border: 2px solid #d4af37; font-size: 50px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    </style>
+</head>
+<body>
+    <h2>لعبة X-O</h2>
+    <div class="board" id="board"></div>
+    <h3 id="status">دور اللاعب X</h3>
+    <button onclick="reset()">إعادة اللعب</button>
+
+    <script>
+        let board = ["","","","","","","","",""];
+        let currentPlayer = "X";
+        const boardEl = document.getElementById('board');
+
+        function createBoard() {
+            boardEl.innerHTML = "";
+            board.forEach((cell, i) => {
+                const div = document.createElement('div');
+                div.className = 'cell';
+                div.innerText = cell;
+                div.onclick = () => move(i);
+                boardEl.appendChild(div);
+            });
+        }
+
+        function move(i) {
+            if(board[i] === "") {
+                board[i] = currentPlayer;
+                currentPlayer = currentPlayer === "X" ? "O" : "X";
+                document.getElementById('status').innerText = "دور اللاعب " + currentPlayer;
+                createBoard();
+                checkWinner();
+            }
+        }
+
+        function checkWinner() {
+            const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+            wins.forEach(w => {
+                if(board[w[0]] && board[w[0]] === board[w[1]] && board[w[0]] === board[w[2]]) {
+                    alert("الفائز هو " + board[w[0]]);
+                    reset();
+                }
+            });
+        }
+
+        function reset() { board = ["","","","","","","","",""]; createBoard(); }
+        createBoard();
+    </script>
+</body>
+</html>
