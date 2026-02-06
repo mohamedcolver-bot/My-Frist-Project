@@ -10,6 +10,23 @@
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: var(--bg); color: var(--text); font-family: sans-serif; overflow: hidden; }
         #starCanvas { position: fixed; top: 0; left: 0; z-index: -1; }
         
+        /* الشعار المركزي */
+        .main-logo {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 5em; /* حجم كبير للشعار */
+            color: var(--gold);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.8), 0 0 20px rgba(212, 175, 55, 0.6); /* توهج ذهبي */
+            margin-top: 40px; /* مسافة من الأعلى */
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 100; /* ليكون فوق النجوم */
+            animation: pulse 2s infinite alternate; /* تأثير نبض خفيف */
+        }
+        @keyframes pulse {
+            from { transform: scale(1); opacity: 0.9; }
+            to { transform: scale(1.05); opacity: 1; }
+        }
+
         /* شريط البحث */
         .search-box { width: 80%; max-width: 400px; margin: 20px auto; position: relative; }
         .search-box input { width: 100%; padding: 12px 40px; border-radius: 25px; border: 1px solid var(--gold); background: rgba(0,0,0,0.5); color: white; outline: none; }
@@ -41,6 +58,8 @@
         <button class="control-btn" onclick="changeStarColor('#3498db')" title="فضاء أزرق"><i class="fas fa-palette"></i></button>
         <button class="control-btn" onclick="toggleMusic()"><i id="mIcon" class="fas fa-play"></i></button>
     </div>
+
+    <h1 class="main-logo">محمد</h1>
 
     <div class="search-box">
         <i class="fas fa-search"></i>
@@ -86,7 +105,7 @@
         }
 
         // تغيير لون النجوم
-        let starColor = '#d4af37';
+        let starColor = '#d4af37'; // لون النجوم الافتراضي ذهبي
         function changeStarColor(color) { starColor = color; }
 
         function openApp(url) { document.getElementById('appFrame').src = url; document.getElementById('gameModal').style.display = "block"; }
@@ -101,7 +120,7 @@
 
         function animate() {
             ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.fillStyle = starColor;
+            ctx.fillStyle = starColor; // استخدام اللون المتغير
             stars.forEach(s => { ctx.beginPath(); ctx.arc(s.x, s.y, s.s, 0, Math.PI*2); ctx.fill(); s.y += 0.5; if(s.y > canvas.height) s.y=0; });
             requestAnimationFrame(animate);
         }
