@@ -6,19 +6,26 @@
     <title>موقعي الشخصي | محمد</title>
     <style>
         body { font-family: sans-serif; background-color: #f0f2f5; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; max-width: 350px; }
-        .profile-img { width: 180px; height: 180px; border-radius: 15px; object-fit: cover; border: 4px solid #3498db; margin-bottom: 15px; }
-        h1 { color: #1c1e21; margin: 10px 0; }
-        p { color: #606770; font-size: 1.1em; }
-        .github-btn { display: inline-block; background: #24292e; color: white; padding: 10px 20px; text-decoration: none; border-radius: 8px; margin-top: 15px; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; max-width: 350px; width: 90%; }
+        .profile-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid #3498db; margin-bottom: 15px; }
+        h1 { color: #1c1e21; margin: 10px 0; font-size: 24px; }
+        p { color: #606770; font-size: 16px; line-height: 1.5; margin-bottom: 20px; }
+        .links { display: flex; flex-direction: column; gap: 12px; }
+        .btn { display: block; padding: 12px; text-decoration: none; border-radius: 8px; color: white; font-weight: bold; transition: 0.3s; font-size: 16px; }
+        .whatsapp { background-color: #25D366; }
+        .github { background-color: #24292e; }
+        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
     </style>
 </head>
 <body>
     <div class="card">
         <img src="me.jpg" alt="محمد" class="profile-img">
         <h1>محمد</h1>
-        <p>مرحباً بكم في موقعي الشخصي! أنا مطور ويب طموح، وهذا أول مشروع لي مرفوع عبر SSH.</p>
-        <a href="https://github.com/mohamedcolver-bot" class="github-btn">حسابي على GitHub</a>
+        <p>مرحباً! أنا مطور ويب من تونس. يسعدني تواصلكم معي لمناقشة المشاريع البرمجية.</p>
+        <div class="links">
+            <a href="https://wa.me/21655391749" class="btn whatsapp" target="_blank">تواصل معي عبر واتساب</a>
+            <a href="https://github.com/mohamedcolver-bot" class="btn github" target="_blank">حسابي على GitHub</a>
+        </div>
     </div>
 </body>
 </html>
