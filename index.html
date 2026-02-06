@@ -3,45 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة محمد للمشاريع</title>
+    <title>منصة محمد الفخمة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --bg: #f0f2f5; --card: #fff; --text: #333; --primary: #3498db; }
-        body { background: var(--bg); color: var(--text); font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; }
-        .profile { text-align: center; background: var(--card); padding: 20px; border-radius: 20px; width: 100%; max-width: 400px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; width: 100%; max-width: 800px; }
-        .item { background: var(--card); padding: 20px; border-radius: 15px; text-align: center; transition: 0.3s; text-decoration: none; color: inherit; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .item:hover { transform: translateY(-5px); background: var(--primary); color: white; }
-        .item i { font-size: 40px; margin-bottom: 10px; }
-        .footer { margin-top: 40px; text-align: center; color: #7f8c8d; }
-        .visitor-counter { margin-top: 10px; padding: 10px; background: #fff; border-radius: 10px; display: inline-block; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        /* تصميم فخم: أسود وذهبي */
+        :root { 
+            --bg: #0f0f0f; 
+            --card: #1a1a1a; 
+            --text: #e0e0e0; 
+            --gold: #d4af37; 
+            --gold-hover: #f1c40f; 
+        }
+        
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 20px; 
+            margin: 0;
+        }
+
+        .profile { 
+            text-align: center; 
+            background: var(--card); 
+            padding: 30px; 
+            border-radius: 20px; 
+            width: 100%; 
+            max-width: 450px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            border: 1px solid var(--gold);
+            margin-bottom: 30px;
+        }
+
+        h1 { color: var(--gold); letter-spacing: 2px; }
+
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
+            gap: 20px; 
+            width: 100%; 
+            max-width: 900px; 
+        }
+
+        .item { 
+            background: var(--card); 
+            padding: 25px; 
+            border-radius: 15px; 
+            text-align: center; 
+            transition: 0.4s; 
+            text-decoration: none; 
+            color: var(--text); 
+            border: 1px solid #333;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .item:hover { 
+            transform: translateY(-10px); 
+            border-color: var(--gold); 
+            box-shadow: 0 0 20px var(--gold);
+            color: var(--gold);
+        }
+
+        .item i { font-size: 45px; margin-bottom: 15px; color: var(--gold); }
+
+        .social-links a { 
+            color: var(--text); 
+            font-size: 30px; 
+            margin: 0 15px; 
+            transition: 0.3s; 
+        }
+        .social-links a:hover { color: var(--gold); }
+
+        .footer { margin-top: 50px; text-align: center; border-top: 1px solid #333; width: 100%; padding-top: 20px; }
+        
+        /* زر التحكم في الموسيقى */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: black;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
+
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+    <button class="music-control" onclick="toggleMusic()"><i id="musicIcon" class="fas fa-play"></i></button>
+
     <div class="profile">
         <h1>محمد</h1>
-        <p>مرحباً بك في منصتي المتكاملة</p>
-        <div style="font-size: 25px;">
-            <a href="https://wa.me/21655391749" style="color:#25D366; margin:10px;"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://github.com/mohamedcolver-bot" style="color:#333; margin:10px;"><i class="fab fa-github"></i></a>
+        <p style="font-style: italic;">مطور ومصمم حلول رقمية</p>
+        <div class="social-links">
+            <a href="https://wa.me/21655391749"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://github.com/mohamedcolver-bot"><i class="fab fa-github"></i></a>
         </div>
     </div>
 
     <div class="grid">
-        <a href="snake.html" class="item"><i class="fas fa-snake"></i><br>لعبة الثعبان</a>
+        <a href="snake.html" class="item"><i class="fas fa-chess-board"></i><br>لعبة الثعبان</a>
         <a href="memory.html" class="item"><i class="fas fa-brain"></i><br>لعبة الذاكرة</a>
-        <a href="todo.html" class="item"><i class="fas fa-check-double"></i><br>تطبيق المهام</a>
-        <a href="calc.html" class="item"><i class="fas fa-calculator"></i><br>الحاسبة الذكية</a>
-        <a href="shop.html" class="item"><i class="fas fa-shopping-cart"></i><br>المتجر</a>
-        <a href="forum.html" class="item"><i class="fas fa-users"></i><br>المنتدى</a>
+        <a href="todo.html" class="item"><i class="fas fa-list-check"></i><br>المهام الذكية</a>
+        <a href="calc.html" class="item"><i class="fas fa-calculator"></i><br>حاسبة النخبة</a>
+        <a href="shop.html" class="item"><i class="fas fa-gem"></i><br>المتجر الفخم</a>
+        <a href="forum.html" class="item"><i class="fas fa-crown"></i><br>منتدى النخبة</a>
     </div>
 
     <div class="footer">
-        <p>جميع الحقوق محفوظة لمحمد © 2026</p>
-        <div class="visitor-counter">
-            <i class="fas fa-eye"></i> عدد الزوار: 
-            <img src="https://hitwebcounter.com/counter/counter.php?page=mohamed_site_2026&style=0006&nbdigits=5&type=page&initCount=0" title="Free Counter" Alt="web counter" border="0" style="vertical-align: middle;">
-        </div>
+        <p>تصميم وتنفيذ محمد © 2026</p>
+        <img src="https://hitwebcounter.com/counter/counter.php?page=mohamed_luxury&style=0005&nbdigits=5&type=page&initCount=0" title="Visitor Counter" Alt="counter" border="0">
     </div>
+
+    <script>
+        var music = document.getElementById("bgMusic");
+        var icon = document.getElementById("musicIcon");
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                icon.className = "fas fa-pause";
+            } else {
+                music.pause();
+                icon.className = "fas fa-play";
+            }
+        }
+    </script>
 </body>
 </html>
