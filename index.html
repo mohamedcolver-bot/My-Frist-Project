@@ -3,25 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إمبراطورية محمد | 21 لعبة</title>
+    <title>Mohamed Empire | Pro & Earn</title>
     <link rel="icon" href="https://img.icons8.com/flat-round/64/crown.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --bg: #050505; --gold: #d4af37; --glass: rgba(255, 255, 255, 0.05); }
         body, html { margin: 0; padding: 0; background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
         #starCanvas { position: fixed; top: 0; left: 0; z-index: -1; }
-        .top-nav { width: 100%; display: flex; justify-content: space-between; padding: 15px 30px; box-sizing: border-box; background: rgba(0,0,0,0.7); backdrop-filter: blur(15px); position: sticky; top:0; z-index: 2000; align-items: center; }
+        
+        .top-nav { width: 100%; display: flex; justify-content: space-between; padding: 15px 30px; box-sizing: border-box; background: rgba(0,0,0,0.7); backdrop-filter: blur(15px); position: sticky; top:0; z-index: 2000; align-items: center; border-bottom: 1px solid rgba(212,175,55,0.2); }
         .nav-btn { background: var(--glass); border: 1px solid var(--gold); color: var(--gold); padding: 8px 18px; cursor: pointer; border-radius: 25px; transition: 0.3s; }
-        .logo-container { text-align: center; margin: 20px 0; }
+
+        .logo-container { text-align: center; margin: 30px 0; }
         .main-logo { font-size: 3.5em; color: var(--gold); text-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
-        .search-container { width: 90%; max-width: 400px; margin: 10px auto 25px; position: relative; }
-        .search-container input { width: 100%; padding: 12px 45px; border-radius: 25px; border: 1px solid var(--gold); background: rgba(0,0,0,0.5); color: white; outline: none; }
-        .search-container i { position: absolute; right: 15px; top: 15px; color: var(--gold); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 15px; width: 95%; max-width: 1000px; margin: auto; padding-bottom: 50px; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 15px; width: 95%; max-width: 1000px; margin: auto; padding-bottom: 30px; }
         .item { background: var(--glass); padding: 20px; border-radius: 15px; text-align: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
-        .item.hidden { display: none; }
         .item:hover { border-color: var(--gold); transform: translateY(-5px); background: rgba(212, 175, 55, 0.1); }
         .item i { font-size: 28px; color: var(--gold); margin-bottom: 10px; display: block; }
+
+        /* زر الدعم المادي الجديد */
+        .support-section { text-align: center; margin: 40px 0; padding: 20px; }
+        .support-btn { 
+            background: linear-gradient(45deg, #d4af37, #f1c40f); 
+            color: black; 
+            padding: 15px 35px; 
+            border-radius: 30px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            font-size: 1.2em; 
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            transition: 0.3s;
+            display: inline-block;
+        }
+        .support-btn:hover { transform: scale(1.1); box-shadow: 0 0 30px var(--gold); }
+
         .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); }
         .modal-content { position: relative; width: 95%; height: 90%; margin: 2% auto; border: 1px solid var(--gold); border-radius: 20px; overflow: hidden; }
         .close { position: absolute; top: 10px; left: 20px; color: #fff; font-size: 40px; cursor: pointer; z-index: 3001; }
@@ -30,44 +46,38 @@
 </head>
 <body onload="init()">
     <canvas id="starCanvas"></canvas>
+
     <nav class="top-nav">
         <div id="clock"></div>
         <button class="nav-btn" onclick="toggleLang()" id="langBtn">English</button>
     </nav>
+
     <div class="logo-container"><h1 class="main-logo" id="logoText">محمد</h1></div>
-    <div class="search-container">
-        <i class="fas fa-search"></i>
-        <input type="text" id="searchInput" onkeyup="searchApps()" placeholder="ابحث عن لعبة...">
-    </div>
+
     <div class="grid" id="appGrid"></div>
+
+    <div class="support-section">
+        <h3 style="color: var(--gold); margin-bottom: 15px;">هل أعجبك عملي؟</h3>
+        <a href="https://www.buymeacoffee.com/" target="_blank" class="support-btn">
+            <i class="fas fa-coffee"></i> ادعمني بمبلغ بسيط
+        </a>
+        <p style="font-size: 0.8em; margin-top: 10px; opacity: 0.7;">شكراً لدعمك لإمبراطورية محمد!</p>
+    </div>
+
     <div id="gameModal" class="modal">
         <span class="close" onclick="closeApp()">&times;</span>
         <div class="modal-content"><iframe id="appFrame"></iframe></div>
     </div>
+
     <script>
         let currentLang = 'ar';
         const apps = [
             { id: 'wa', icon: 'fab fa-whatsapp', ar: 'واتساب', en: 'WhatsApp', url: 'https://wa.me/21655391749', ext: true },
-            { id: 'xo', icon: 'fas fa-times', ar: 'لعبة X-O', en: 'Tic Tac Toe', url: 'xo.html' },
-            { id: 'gems', icon: 'fas fa-gem', ar: 'جمع الجواهر', en: 'Gem Collector', url: 'gems.html' },
-            { id: 'guess', icon: 'fas fa-question', ar: 'تخمين الرقم', en: 'Guess Number', url: 'guess.html' },
-            { id: 'jump', icon: 'fas fa-running', ar: 'تحدي القفز', en: 'Jump Challenge', url: 'jump.html' },
-            { id: 'mem', icon: 'fas fa-th', ar: 'الذاكرة', en: 'Memory Game', url: 'memory.html' },
-            { id: 'click', icon: 'fas fa-mouse-pointer', ar: 'النقر السريع', en: 'Fast Click', url: 'click.html' },
             { id: 'sn', icon: 'fas fa-gamepad', ar: 'الثعبان', en: 'Snake', url: 'snake.html' },
+            { id: 'xo', icon: 'fas fa-times', ar: 'X-O', en: 'Tic Tac Toe', url: 'xo.html' },
             { id: 'rc', icon: 'fas fa-car', ar: 'السباق', en: 'Racing', url: 'race.html' },
             { id: 'cl', icon: 'fas fa-calculator', ar: 'الحاسبة', en: 'Calculator', url: 'calc.html' }
-            // يمكنك إضافة البقية هنا بنفس الطريقة
         ];
-
-        function searchApps() {
-            let filter = document.getElementById('searchInput').value.toLowerCase();
-            let items = document.getElementsByClassName('item');
-            for (let item of items) {
-                let text = item.innerText.toLowerCase();
-                item.classList.toggle('hidden', !text.includes(filter));
-            }
-        }
 
         function renderApps() {
             const grid = document.getElementById('appGrid');
@@ -94,7 +104,7 @@
         let stars = [];
         function initStars() {
             canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-            stars = Array.from({length: 80}, () => ({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.2}));
+            stars = Array.from({length: 80}, () => ({x: Math.random()*canvas.width, y: Math.random()*canvas.height, s: Math.random()*1.2}));
         }
         function drawStars() {
             ctx.clearRect(0,0,canvas.width, canvas.height);
@@ -102,6 +112,7 @@
             stars.forEach(s => { ctx.beginPath(); ctx.arc(s.x, s.y, s.s, 0, Math.PI*2); ctx.fill(); s.y += 0.3; if(s.y > canvas.height) s.y = 0; });
             requestAnimationFrame(drawStars);
         }
+
         function init() { initStars(); drawStars(); renderApps(); setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000); }
     </script>
 </body>
